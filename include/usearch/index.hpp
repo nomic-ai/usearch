@@ -1501,7 +1501,7 @@ class memory_mapped_file_t {
 #if defined(USEARCH_DEFINED_WINDOWS)
 
         HANDLE file_handle =
-            CreateFile(path_, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
+            CreateFileA(path_, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
         if (file_handle == INVALID_HANDLE_VALUE)
             return result.failed("Opening file failed!");
 
