@@ -56,12 +56,16 @@
 
 // OS-specific includes
 #if defined(USEARCH_DEFINED_WINDOWS)
+#define WIN32_LEAN_AND_MEAN
 #define _USE_MATH_DEFINES
 #define NOMINMAX
+#define NOGDI
 #include <Windows.h>
 #include <sys/stat.h> // `fstat` for file size
-#undef NOMINMAX
+#undef WIN32_LEAN_AND_MEAN
 #undef _USE_MATH_DEFINES
+#undef NOMINMAX
+#undef NOGDI
 #else
 #include <fcntl.h>    // `fallocate`
 #include <stdlib.h>   // `posix_memalign`
