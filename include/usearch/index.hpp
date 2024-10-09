@@ -186,17 +186,25 @@ template <typename at, typename other_at = at> at exchange(at& obj, other_at&& n
 
 /// @brief  The `std::destroy_at` alternative for C++11.
 template <typename at, typename sfinae_at = at>
-typename std::enable_if<std::is_pod<sfinae_at>::value>::type destroy_at(at*) {}
+auto destroy_at(at*)
+    -> typename std::enable_if<std::is_trivial<sfinae_at>::value && std::is_standard_layout<sfinae_at>::value>::type
+{}
 template <typename at, typename sfinae_at = at>
-typename std::enable_if<!std::is_pod<sfinae_at>::value>::type destroy_at(at* obj) {
+auto destroy_at(at* obj)
+    -> typename std::enable_if<!std::is_trivial<sfinae_at>::value || !std::is_standard_layout<sfinae_at>::value>::type
+{
     obj->~sfinae_at();
 }
 
 /// @brief  The `std::construct_at` alternative for C++11.
 template <typename at, typename sfinae_at = at>
-typename std::enable_if<std::is_pod<sfinae_at>::value>::type construct_at(at*) {}
+auto construct_at(at*)
+    -> typename std::enable_if<std::is_trivial<sfinae_at>::value && std::is_standard_layout<sfinae_at>::value>::type
+{}
 template <typename at, typename sfinae_at = at>
-typename std::enable_if<!std::is_pod<sfinae_at>::value>::type construct_at(at* obj) {
+auto construct_at(at* obj)
+    -> typename std::enable_if<!std::is_trivial<sfinae_at>::value || !std::is_standard_layout<sfinae_at>::value>::type
+{
     new (obj) at();
 }
 
