@@ -43,7 +43,7 @@
     "devDependencies": {
         "@types/bindings": "^1.5.5",
         "@types/node": "^20.12.4",
-        "node-gyp": "^10.1.0",
+        "node-gyp": "^12.1.0",
         "prebuildify": "^6.0.0",
         "typescript": "^5.4.4"
     },
